@@ -1,4 +1,5 @@
 import random
+import pygame
 
 
 class MineField:
@@ -17,7 +18,7 @@ class MineField:
         for row in range(self.row):
             self.field.append([])
             for column in range(self.col):
-                self.field[row].append("Safe")
+                self.field[row].append("Init")
 
         # 设定边界
         for row in range(self.row):
@@ -36,6 +37,24 @@ class MineField:
                 self.field[x][y] = "Mine"
                 mine_count += 1
 
-    def print_field(self):
-        """在屏幕上打印棋盘"""
+    def print_block(self, block_content, pos_x, pos_y):
+        """在屏幕上打印一个方格"""
+        image = pygame.image.load("images/icons/mineInit.png")
+
+        if block_content != "Init" or block_content != "Mine":
+            if block_content == "markCorrect" or block_content == "markWrong":
+                image = pygame.image.load("images/icons/mark.png")
+            else:
+                image_path = "images/icons/{}.png".format(block_content)
+                image = pygame.image.load(image_path)
+
+        rect = image.get_rect()
+        rect.x = pos_x
+        rect.y = pos_y
+
+        self.screen.blit(image, rect)
+
+
+
+
 
